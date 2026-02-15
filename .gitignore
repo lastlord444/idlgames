@@ -1,3 +1,32 @@
+# ============================================
+# Unity
+# ============================================
+.vscode/
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+*.sln
+*.suo
+*.csproj
+*.unityproj
+*.pidb
+
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ============================================
+# Java (original)
+# ============================================
 # Compiled class file
 *.class
 
