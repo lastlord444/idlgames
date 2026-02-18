@@ -1,114 +1,144 @@
-# Unity Match3-SDK Block Blast Skeleton
+# Block Blast MVP0 🎮
 
-Unity 6 (6000.3.8f1 LTS) üzerinde **[Match3-SDK](https://github.com/LibraStack/Match3-SDK)** kullanarak Block Blast tarzı puzzle oyunu geliştirme projesi.
+> Android hedefli **1010 / Block Blast** tarzı puzzle oyunu — 10x10 grid, 3 shape slot, drag-drop yerleştirme, row/col clear ve combo sistemi.
 
-## 📋 Proje Bilgileri
+> _Bu repo orijinalde bir Match3-SDK fork olarak başladı, ardından Block Blast MVP0'a evirildi._
 
-- **Unity Sürümü:** 6000.3.8f1 (Unity 6 LTS)
-- **Platform:** Windows, Android (hedef)
-- **SDK:** Match3-SDK (MIT License)
-- **Ek Paketler:** UniTask, DOTween
-- **Branch:** `skeleton/match3sdk`
+---
 
-## 🎯 Proje Durumu
+## ✅ MVP0 Feature Checklist
 
-✅ **Skeleton Kurulumu Tamamlandı**
-- [x] Match3-SDK Unity sample projesi entegre edildi
-- [x] Unity 6.3 LTS uyumluluğu sağlandı
-- [x] Git repo yapısı kuruldu
-- [x] Dokümentasyon hazırlandı
+- [x] 10×10 board (checkerboard premium görünüm)
+- [x] 3 shape slot + anlık refill (Tetris-style parçalar)
+- [x] Drag & drop + grid snap + placement validation
+- [x] Row / column clear + skor sistemi + combo multiplier
+- [x] Game Over: Mevcut parçalar hiçbir yere sığmazsa tetiklenir
+- [x] Best Score: `PlayerPrefs` ile persistent
+- [x] Ghost preview (gri=geçerli, kırmızı=geçersiz)
+- [x] Safe area bottom tray fix (Android notch/home bar uyumlu)
+- [x] **Juice v1** — SFX (place / invalid / clear / combo / gameover), haptic, camera shake
+- [x] **Juice v2** — Line-based juice (1× SFX per line, HashSet dedupe), particle fallback cache
 
-⏳ **Sırada:**
-- [ ] Android Build Support kurulumu (Unity Hub GUI'den manuel)
-- [ ] Match3 mekaniklerini Block Blast'a dönüştürme
-- [ ] 8x8 sabit grid sistemi
-- [ ] Blok şekilleri ve drag & drop
+---
 
-## 📁 Proje Yapısı
+## 🚀 Nasıl Çalıştırılır
 
-```
-idlgames/
-├── Assets/
-│   ├── Art/               # Sprite'lar, texture'lar
-│   ├── Prefabs/          # Tile ve item prefab'ları
-│   ├── Scenes/           # MainScene.unity
-│   ├── Scripts/          # Game logic
-│   └── Plugins/          # DOTween vb.
-├── Packages/
-│   ├── manifest.json     # Package bağımlılıkları
-│   └── packages-lock.json
-├── ProjectSettings/      # Unity proje ayarları
-└── docs/
-    ├── MENTOR_CHECKLIST.md  # Geliştirme kontrol listesi
-    └── TODO_NEXT.md        # Block Blast dönüşüm adımları
-```
+### Gereksinimler
+- **Unity:** 6000.3.x LTS (6000.3.8f1 test edildi)
+- **Platformlar:** Windows Editor, Android
 
-## 🚀 Kurulum
-
-### 1. Repo'yu Klonla
+### Adımlar
 ```bash
 git clone https://github.com/lastlord444/idlgames.git
 cd idlgames
-git checkout skeleton/match3sdk
+git checkout feature/juice-v2-polish   # En son değişiklikler
+# veya: git checkout skeleton/match3sdk  (stabil base branch)
 ```
 
-### 2. Unity Hub'dan Aç
-- Unity Hub > Add > Proje klasörünü seç
-- Unity sürümü: **6000.3.8f1** seçilmeli
-- Proje ilk açılışta package import yapacak (~2-3 dakika)
+1. Unity Hub > **Add** > `idlgames/` klasörünü seç
+2. Unity **6000.3.x LTS** ile aç (ilk açılışta ~2-3 dk package import)
+3. `Assets/Scenes/MainScene.unity` sahnesini aç
+4. **Play** butonuna bas
 
-### 3. Android Build Support (Opsiyonel)
-Unity Hub > Installs > 6000.3.8f1 > Add Modules:
-- ✅ Android Build Support
-- ✅ Android SDK & NDK Tools
-- ✅ OpenJDK
+> **Beklenen:** Console 0 error / 0 warning. Ekranın altında 3 shape slot görünür.
 
-## 🎮 Test Etme
+---
 
-1. Unity Editor'de `Assets/Scenes/MainScene.unity` sahnesini aç
-2. Play butonuna bas
-3. Match3 demo oynanabilir olmalı
+## 🎮 Kontroller
 
-**Beklenen:** Console'da 0 error, oyun çalışır durumda.
+| Eylem | PC | Mobil |
+|-------|----|-------|
+| Parçayı sürükle | Sol tık tutup sürükle | Parmakla sürükle |
+| Tahtaya bırak | Sol tıkı bırak | Parmağı kaldır |
+| Ghost (önizleme) | Sürükleme sırasında otomatik | Otomatik |
 
-## 📚 Dokümanlar
+---
 
-- **[MENTOR_CHECKLIST.md](docs/MENTOR_CHECKLIST.md):** Her değişiklik öncesi kontrol listesi
-- **[TODO_NEXT.md](docs/TODO_NEXT.md):** Block Blast'a dönüşüm roadmap
+## 📱 Android Build
+
+```
+Unity Editor → File → Build Settings
+  → Platform: Android
+  → ✅ IL2CPP Scripting Backend
+  → ✅ ARM64
+  → Build (debug) veya Build And Run
+```
+
+> Android Build Support'u Unity Hub > Installs > Modüller'den kurman gerekir.
+
+---
+
+## 📸 Proof
+
+| Ekran | Açıklama |
+|-------|----------|
+| [`gameplay_juice_v2.png`](Assets/Screenshots/gameplay_juice_v2.png) | Line clear efektleri + skor artışı |
+| [`console_clean_juice_v2.png`](Assets/Screenshots/console_clean_juice_v2.png) | Console: 0 error / 0 warning |
+| [`ProofPack_gameplay_clean.png`](Assets/Screenshots/ProofPack_gameplay_clean.png) | Play mode: 3 slot görünür |
+
+---
 
 ## 🛠️ Teknoloji Stack
 
 | Kategori | Teknoloji |
 |----------|-----------|
-| Engine | Unity 6000.3.8f1 (LTS) |
-| Grid System | Match3-SDK |
-| Async | UniTask |
-| Animation | DOTween |
-| UI | TextMeshPro |
+| Engine | Unity 6000.3.x LTS |
+| Grid / Render | Match3-SDK (LibraStack) — renderer'ı koruduk, game logic yeniden yazıldı |
+| Juice | `GameJuiceManager` + `LineClearSequencer` (coroutine-based) |
+| UI | TextMeshPro + SafeAreaFitter |
 | Build | IL2CPP + ARM64 |
+| Persisted State | PlayerPrefs (best score) |
 
-## ⚠️ Önemli Notlar
+---
 
-1. **Unity Sürümü:** Kesinlikle 6000.3.x LTS kullanılmalı (2021.3 uyumsuz)
-2. **Package Manager:** GitHub'dan paket çekiyor, internet gerekli
-3. **Android:** Manuel module kurulumu gerekiyor (Unity Hub CLI çalışmıyor)
-4. **Match3 Mantığı:** Erken aşamada devre dışı bırakılmalı (Block Blast için)
+## 📁 Önemli Script'ler
+
+```
+Assets/Scripts/Common/
+├── GameModes/
+│   └── BlockBlastGameManager.cs   ← Ana oyun döngüsü
+├── Juice/
+│   ├── GameJuiceManager.cs        ← SFX / haptic / shake yönetimi
+│   └── LineClearSequencer.cs      ← Line clear VFX (flash + particle)
+├── UI/
+│   ├── ShapeSlot.cs               ← Dinamik blok boyutu hesabı
+│   ├── SafeAreaFitter.cs          ← Android safe area uyumu
+│   └── DevOnlyVisibility.cs       ← Debug UI → release'de gizle
+├── BlockBlastInputManager.cs      ← Drag / hover / drop events
+├── BoardConfig.cs                 ← Grid yapılandırması (10×10, tile size)
+└── Shapes/
+    ├── ShapeData.cs
+    └── ShapeGenerator.cs
+```
+
+---
+
+## 🗺️ Roadmap
+
+### MVP1 (Sonraki)
+- [ ] Punch-scale animasyonu (yerleştirilen bloklar için)
+- [ ] Line clear staggered flash (tile başına ~5ms fark)
+- [ ] Board shake per line (camera veya root transform)
+- [ ] Invalid drop pitch-down blip
+- [ ] Proper particle prefab + object pool
+
+### MVP2
+- [ ] Admob banner / interstitial entegrasyonu
+- [ ] Firebase Analytics (first_open, level_end event)
+- [ ] Tema sistemi (renk paketi)
+- [ ] Leaderboard (Play Games veya custom)
+
+---
 
 ## 🔗 Bağlantılar
 
 - **Repo:** https://github.com/lastlord444/idlgames
-- **Branch:** https://github.com/lastlord444/idlgames/tree/skeleton/match3sdk
-- **Match3-SDK:** https://github.com/LibraStack/Match3-SDK
-- **UniTask:** https://github.com/Cysharp/UniTask
-
-## 📝 Lisans
-
-- **Proje:** TBD
-- **Match3-SDK:** MIT License
-- **DOTween:** Free version (HOTween v2)
+- **Branch (stable):** `skeleton/match3sdk`
+- **Branch (latest):** `feature/juice-v2-polish`
+- **Match3-SDK (base):** https://github.com/LibraStack/Match3-SDK
 
 ---
 
-**Son Güncelleme:** 2026-02-16  
+**Son Güncelleme:** 2026-02-18  
 **Geliştirici:** @lastlord444  
-**Durum:** 🟢 Skeleton Hazır
+**Durum:** 🟡 MVP0 — Core Loop Tamamlandı, Juice v2 Polish Devam Ediyor
