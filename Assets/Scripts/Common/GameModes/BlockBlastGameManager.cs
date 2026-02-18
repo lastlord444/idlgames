@@ -575,8 +575,11 @@ namespace Common.GameModes
             GridPosition bestOrigin = gridPos;
             bool canPlace = _shapeGenerator.CanPlaceAt(shape, _occupiedCells, gridPos.RowIndex, gridPos.ColumnIndex);
             
+            bool onBoard = gridPos.RowIndex >= 0 && gridPos.RowIndex < _boardConfig.RowCount &&
+                           gridPos.ColumnIndex >= 0 && gridPos.ColumnIndex < _boardConfig.ColumnCount;
+            
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-            Debug.Log($"[DEV] Drop: {gridPos} Valid={canPlace}");
+            Debug.Log($"[DEV] Drop onBoard={onBoard} cell=({gridPos.RowIndex},{gridPos.ColumnIndex}) canPlace={canPlace}");
 #endif
 
             if (canPlace)
